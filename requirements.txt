@@ -1,0 +1,9 @@
+Django==2.2.3
+importlib-metadata==1.7.0
+Markdown==3.3.3
+mistune==0.8.4
+mysqlclient==2.0.3
+pytz==2020.5
+sqlparse==0.4.1
+typing-extensions==3.7.4.3
+zipp==3.4.0
