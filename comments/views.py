@@ -1,4 +1,5 @@
 from blog.models import Post
+from login.models import User
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 from django.contrib import messages
@@ -22,6 +23,8 @@ def comment(request, post_pk):
 
         # 将评论和被评论的文章关联起来。
         comment.post = post
+        commenter_name = request.session.get('user_name')
+        comment.name = User.objects.filter(name = commenter_name)[0]
 
         # 最终将评论数据保存进数据库，调用模型实例的 save 方法
         comment.save()

@@ -67,12 +67,14 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag, verbose_name='标签',  blank=True)
 
     # 文章作者，这里 User 是从 django.contrib.auth.models 导入的。
-    # django.contrib.auth 是 django 内置的应用，专门用于处理网站用户的注册、登录等流程，User 是 
-    # django 为我们已经写好的用户模型。
+    # django.contrib.auth 是 django 内置的应用，专门用于处理网站用户的注册、登录等流程，User是django 为我们已经写好的用户模型。
     # 这里我们通过 ForeignKey 把文章和 User 关联了起来。
     # 因为我们规定一篇文章只能有一个作者，而一个作者可能会写多篇文章，因此这是一对多的关联关系，和 Category 类似。
     author = models.ForeignKey(User, verbose_name="作者", on_delete=models.CASCADE)
     
+    #记录文章阅读量
+    views = models.PositiveIntegerField(default=0, editable=False)
+
     #在 model 被 save 到数据库前指定 modified_time 的值为当前时间
     def save(self, *args, **kwargs):
         self.modified_time = timezone.now()
@@ -97,5 +99,9 @@ class Post(models.Model):
         verbose_name_plural = verbose_name
         ordering = ['-created_time']
     
-    def get_absolute_url(self):
+    def get_absolute_url(self):   #返回详情页url
         return reverse('blog:detail', kwargs={'pk': self.pk})
+    
+    def increase_views(self):  #统计点击量
+        self.views += 1
+        self.save(update_fields=['views'])

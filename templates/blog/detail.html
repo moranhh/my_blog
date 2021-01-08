@@ -11,7 +11,7 @@
                                                 datetime="{{ post.created_time }}">{{ post.created_time }}</time></a></span>
                 <span class="post-author"><a href="#">{{ post.author }}</a></span>
                 <span class="comments-link"><a href="{{ post.get_absolute_url }}#comment-area">{{ post.comment_set.count }} 评论</a></span>
-            <span class="views-count"><a href="#">588 阅读</a></span>
+            <span class="views-count"><a href="#">{{ post.views }} 阅读</a></span>
             </div>
         </header>
         <div class="entry-content clearfix">
@@ -20,25 +20,27 @@
         </article>
 
         <section class="comment-area" id="comment-area">
-                    <hr>
+            <hr>
                     <h3>发表评论</h3>
+                    {% if post.is_login %}
                     <!--发表评论表单-->
-                    {% show_comment_form post %}
-                    <div class="comment-list-panel">
-                        {% show_comments post %}
+                      <h3>{{post.commenter_name}}</h3>
+                      {% show_comment_form post %}
+                        <div>
+                      <a href="/logout/"><font color="#4ea0ec">登出</font></a>
                     </div>
-                </section>
+                    {% else %}
+                      <div>
+                        <a href="{%url 'login:login' %}"><font color="#4ea0ec"> 请先登录后评论 </font></a>  
+                      </div>
+                    {% endif %}
+                    <div class="comment-list-panel">
+                          {% show_comments post %}
+                    </div>
 
-    <!-- 简单分页效果
-    <div class="pagination-simple">
-        <a href="#">上一页</a>
-        <span class="current">第 6 页 / 共 11 页</span>
-        <a href="#">下一页</a>
-    </div>
-    -->
-    <div class="pagination">
-      ...
-    </div>
+        </section>
+
+
 {% endblock main %}
 {% block toc %}
   {% if post.toc %}

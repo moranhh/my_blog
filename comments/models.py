@@ -2,9 +2,16 @@ from django.db import models
 from django.utils import timezone
 # Create your models here.
 class Comment(models.Model):
+    '''
     name = models.CharField('名字', max_length=50)
     email = models.EmailField('邮箱')
     url = models.URLField('网址', blank=True)
+    text = models.TextField('内容')
+    created_time = models.DateTimeField('创建时间', default=timezone.now)
+    post = models.ForeignKey('blog.Post', verbose_name='文章', on_delete=models.CASCADE)
+    
+    '''
+    name = models.ForeignKey('login.User', verbose_name='姓名', on_delete=models.CASCADE)
     text = models.TextField('内容')
     created_time = models.DateTimeField('创建时间', default=timezone.now)
     post = models.ForeignKey('blog.Post', verbose_name='文章', on_delete=models.CASCADE)

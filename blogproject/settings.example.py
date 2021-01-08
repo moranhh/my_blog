@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
     'comments.apps.CommentsConfig',
+    'pure_pagination',  # 分页
+    'login.apps.LoginConfig',
+    'captcha',   #验证码 
+
 ]
 
 MIDDLEWARE = [
@@ -81,8 +85,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',   # 数据库引擎
         'NAME': 'blogproject',  # 数据库名，先前创建的
-        'USER': 'root',     # 用户名，可以自己创建用户
-        'PASSWORD': 'xxxxxx',  # 密码
+        'USER': 'xxx',     # 用户名，可以自己创建用户
+        'PASSWORD': 'xxx',  # 密码
         'HOST': '127.0.0.1',  # mysql服务所在的主机ip
         'PORT': '3306',         # mysql服务端口
     }
@@ -119,13 +123,23 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False
+USE_TZ = False      #是用批量生成脚本时改为True
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static/'),
+)
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost ']
+
+# django-pure-pagination 分页设置
+PAGINATION_SETTINGS = {
+    'PAGE_RANGE_DISPLAYED': 4, # 分页条当前页前后应该显示的总页数（两边均匀分布，因此要设置为偶数），
+    'MARGIN_PAGES_DISPLAYED': 2, # 分页条开头和结尾显示的页数
+    'SHOW_FIRST_PAGE_WHEN_INVALID': True, # 当请求了不存在页，显示第一页
+}
+

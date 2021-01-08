@@ -9,6 +9,7 @@ inclusion_tag 装饰器的参数 takes_context 设置为 True 时将告诉 djang
 from django import template
 
 from ..models import Post, Category, Tag
+from django.db.models.aggregates import Count
 
 register = template.Library()
 
@@ -27,12 +28,15 @@ def show_archives(context):
 
 @register.inclusion_tag('blog/inclusions/_categories.html', takes_context=True)
 def show_categories(context):
+    #返回数据库中全部 Category 的记录， count接受一个与Category关联的模型 然后计算每个Category记录下与之关联的Post的行数
+    category_list = Category.objects.annotate(num_posts=Count('post')).filter(num_posts__gt=0)
     return {
-        'category_list': Category.objects.all(),
-    }
+        'category_list': category_list,
+    }   
 
 @register.inclusion_tag('blog/inclusions/_tags.html', takes_context=True)
 def show_tags(context):
+    tag_list = Tag.objects.annotate(num_posts=Count('post')).filter(num_posts__gt=0)
     return {
-        'tag_list': Tag.objects.all(),
+        'tag_list': tag_list,
     }
