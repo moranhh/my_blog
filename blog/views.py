@@ -179,7 +179,7 @@ class LinuxView(IndexView):
     template_name = 'blog/index.html'
     context_object_name = 'post_list'
     def get_queryset(self):
-       cate = get_object_or_404(Category, name='linux'))
+        cate = get_object_or_404(Category, name='linux')
         return super(LinuxView, self).get_queryset().filter(category=cate)
     paginate_by = 6
 '''
@@ -193,7 +193,7 @@ class AlgorithmView(IndexView):
     template_name = 'blog/index.html'
     context_object_name = 'post_list'
     def get_queryset(self):
-       cate = get_object_or_404(Category, name='算法'))
+        cate = get_object_or_404(Category, name='算法')
         return super(AlgorithmView, self).get_queryset().filter(category=cate)
     paginate_by = 6
 '''
@@ -207,7 +207,7 @@ class DbView(IndexView):
     template_name = 'blog/index.html'
     context_object_name = 'post_list'
     def get_queryset(self):
-       cate = get_object_or_404(Category, name='数据库'))
+        cate = get_object_or_404(Category, name='数据库')
         return super(DbView, self).get_queryset().filter(category=cate)
     paginate_by = 6
 '''
@@ -221,7 +221,7 @@ class SomeelseView(IndexView):
     template_name = 'blog/index.html'
     context_object_name = 'post_list'
     def get_queryset(self):
-       cate = get_object_or_404(Category, name='其他'))
+        cate = get_object_or_404(Category, name='其他')
         return super(SomeelseView, self).get_queryset().filter(category=cate)
     paginate_by = 6
 '''
