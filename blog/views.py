@@ -146,27 +146,87 @@ def search(request):
     post_list = Post.objects.filter(Q(title__icontains=q) | Q(body__icontains=q))
     return render(request, 'blog/index.html', {'post_list': post_list})
 
+class PythonView(IndexView):
+    model = Post
+    template_name = 'blog/index.html'
+    context_object_name = 'post_list'
+    def get_queryset(self):
+        cate = get_object_or_404(Category, name='python')
+        return super(PythonView, self).get_queryset().filter(category=cate)
+    paginate_by = 6
+'''
 def python(request):  #header跳转视图
     cate = get_object_or_404(Category, name='python')
     post_list = Post.objects.filter(category=cate)
     return render(request, 'blog/index.html', context={'post_list': post_list})
+'''
+class CView(IndexView):
+    model = Post
+    template_name = 'blog/index.html'
+    context_object_name = 'post_list'
+    def get_queryset(self):
+        cate = get_object_or_404(Category, name='c++')
+        return super(CView, self).get_queryset().filter(category=cate)
+    paginate_by = 6
+'''
 def c(request):  #header跳转视图
     cate = get_object_or_404(Category, name='c++')
     post_list = Post.objects.filter(category=cate)
     return render(request, 'blog/index.html', context={'post_list': post_list})
+'''
+class LinuxView(IndexView):
+    model = Post
+    template_name = 'blog/index.html'
+    context_object_name = 'post_list'
+    def get_queryset(self):
+       cate = get_object_or_404(Category, name='linux'))
+        return super(LinuxView, self).get_queryset().filter(category=cate)
+    paginate_by = 6
+'''
 def linux(request):  #header跳转视图
     cate = get_object_or_404(Category, name='linux')
     post_list = Post.objects.filter(category=cate)
     return render(request, 'blog/index.html', context={'post_list': post_list})
+'''
+class AlgorithmView(IndexView):
+    model = Post
+    template_name = 'blog/index.html'
+    context_object_name = 'post_list'
+    def get_queryset(self):
+       cate = get_object_or_404(Category, name='算法'))
+        return super(AlgorithmView, self).get_queryset().filter(category=cate)
+    paginate_by = 6
+'''
 def algorithm(request):  #header跳转视图
     cate = get_object_or_404(Category, name='算法')
     post_list = Post.objects.filter(category=cate)
     return render(request, 'blog/index.html', context={'post_list': post_list})
+'''
+class DbView(IndexView):
+    model = Post
+    template_name = 'blog/index.html'
+    context_object_name = 'post_list'
+    def get_queryset(self):
+       cate = get_object_or_404(Category, name='数据库'))
+        return super(DbView, self).get_queryset().filter(category=cate)
+    paginate_by = 6
+'''
 def db(request):  #header跳转视图
     cate = get_object_or_404(Category, name='数据库')
     post_list = Post.objects.filter(category=cate)
     return render(request, 'blog/index.html', context={'post_list': post_list})
+'''
+class SomeelseView(IndexView):
+    model = Post
+    template_name = 'blog/index.html'
+    context_object_name = 'post_list'
+    def get_queryset(self):
+       cate = get_object_or_404(Category, name='其他'))
+        return super(SomeelseView, self).get_queryset().filter(category=cate)
+    paginate_by = 6
+'''
 def someelse(request):  #header跳转视图
     cate = get_object_or_404(Category, name='其他')
     post_list = Post.objects.filter(category=cate)
     return render(request, 'blog/index.html', context={'post_list': post_list})
+'''
