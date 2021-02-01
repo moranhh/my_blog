@@ -113,6 +113,9 @@ def register(request):
 
                 #message = '请前往邮箱进行确认！'
                 #return render(request, 'login/confirm.html', locals())
+                request.session['is_login'] = True
+                request.session['user_id'] = new_user.id
+                request.session['user_name'] = new_user.name
                 return redirect('blog:index')
         else:
             return render(request, 'login/register.html', locals())
